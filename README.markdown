@@ -10,6 +10,8 @@ El proyecto incluye tres clases principales: `Producto`, `Usuario` y `Carrito`, 
 - **Git**: Sistema de control de versiones para gestionar el código fuente.
 - **GitHub**: Plataforma para alojar el repositorio público, facilitando la revisión y evaluación.
 - **IDE**: Cualquier entorno de desarrollo compatible con Java (por ejemplo, IntelliJ IDEA, Eclipse) puede usarse para compilar y probar el código.
+- Usare Eclipse
+![image](https://github.com/user-attachments/assets/f2597b9d-0b61-4645-8260-055d6e2be7dc)
 
 ## Detalles de Implementación
 
@@ -99,3 +101,204 @@ public class Main {
     }
 }
 ```
+
+
+
+// Producto.java
+public class Producto {
+    private int id;
+    private String nombre;
+    private String descripcion;
+    private double precio;
+    private int stock;
+
+    // Constructor
+    public Producto(int id, String nombre, String descripcion, double precio, int stock) {
+        this.id = id;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+    }
+
+    // Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+}
+
+// Usuario.java
+public class Usuario {
+    private int id;
+    private String nombre;
+    private String correo;
+    private String contrasena;
+
+    // Constructor
+    public Usuario(int id, String nombre, String correo, String contrasena) {
+        this.id = id;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.contrasena = contrasena;
+    }
+
+    // Getters y Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    // Finalize method (equivalente a destructor, aunque raramente usado en Java)
+    @Override
+    protected void finalize() throws Throwable {
+        try {
+            System.out.println("Usuario con ID " + id + " está siendo eliminado");
+        } finally {
+            super.finalize();
+        }
+    }
+}
+
+// Carrito.java
+import java.util.ArrayList;
+import java.util.List;
+
+public class Carrito {
+    private List<Producto> productos;
+    private double total;
+
+    // Constructor
+    public Carrito() {
+        this.productos = new ArrayList<>();
+        this.total = 0.0;
+    }
+
+    // Método para añadir producto
+    public void agregarProducto(Producto producto) {
+        if (producto.getStock() > 0) {
+            productos.add(producto);
+            total += producto.getPrecio();
+            producto.setStock(producto.getStock() - 1);
+            System.out.println("Producto " + producto.getNombre() + " añadido al carrito");
+        } else {
+            System.out.println("No hay stock disponible para " + producto.getNombre());
+        }
+    }
+
+    // Método para remover producto
+    public void removerProducto(Producto producto) {
+        if (productos.remove(producto)) {
+            total -= producto.getPrecio();
+            producto.setStock(producto.getStock() + 1);
+            System.out.println("Producto " + producto.getNombre() + " removido del carrito");
+        } else {
+            System.out.println("El producto " + producto.getNombre() + " no está en el carrito");
+        }
+    }
+
+    // Método para calcular total
+    public double calcularTotal() {
+        return total;
+    }
+
+    // Getter para la lista de productos
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    // Getter para el total
+    public double getTotal() {
+        return total;
+    }
+}
+
+// Main.java (para probar las clases)
+public class Main {
+    public static void main(String[] args) {
+        // Crear productos
+        Producto p1 = new Producto(1, "Laptop", "Laptop de alta gama", 999.99, 5);
+        Producto p2 = new Producto(2, "Mouse", "Mouse óptico", 19.99, 10);
+
+        // Crear usuario
+        Usuario usuario = new Usuario(1, "Juan Pérez", "juan@example.com", "contraseña123");
+
+        // Crear carrito
+        Carrito carrito = new Carrito();
+
+        // Agregar productos al carrito
+        carrito.agregarProducto(p1);
+        carrito.agregarProducto(p2);
+
+        // Mostrar total
+        System.out.println("Total del carrito: $" + carrito.calcularTotal());
+
+        // Remover un producto
+        carrito.removerProducto(p2);
+
+        // Mostrar total actualizado
+        System.out.println("Total del carrito después de remover: $" + carrito.calcularTotal());
+    }
+}
