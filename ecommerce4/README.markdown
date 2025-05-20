@@ -1,55 +1,53 @@
-# E-Commerce Platform: Polymorphism and Overloading
+Plataforma de Comercio Electrónico: Polimorfismo y Sobrecarga
+Descripción del Proyecto
+Este proyecto implementa una plataforma de comercio electrónico en Java para demostrar conceptos de programación orientada a objetos, específicamente polimorfismo, sobrecarga de métodos y sobreescritura de métodos. El sistema gestiona productos (digitales y físicos), un carrito de compras y pedidos, mostrando cómo diferentes tipos de productos pueden ser manejados de manera uniforme a través de una clase base mientras se permite un comportamiento especializado en las clases derivadas.
+Tecnologías Utilizadas
 
-## Project Description
-This project implements an e-commerce platform in Java to demonstrate object-oriented programming concepts, specifically polymorphism, method overloading, and method overriding. The system manages products (digital and physical), a shopping cart, and orders, showcasing how different product types can be handled uniformly through a base class while allowing specialized behavior in derived classes.
+Java: Versión 17 (JDK 17) para la programación principal.
+Maven: Para la gestión de proyectos y dependencias (opcional, no utilizado en esta implementación por simplicidad).
+Git: Para el control de versiones y alojamiento en GitHub.
 
-## Technologies Used
-- **Java**: Version 17 (JDK 17) for core programming.
-- **Maven**: For project management and dependencies (optional, not used in this implementation for simplicity).
-- **Git**: For version control and GitHub hosting.
+Detalles de la Implementación
+Polimorfismo
 
-## Implementation Details
+La clase Producto es una clase base abstracta con clases derivadas ProductoDigital y ProductoFisico.
+El polimorfismo se demuestra en la clase Pedido, donde el método agregarProducto acepta cualquier objeto Producto, independientemente de si es ProductoDigital o ProductoFisico. El método mostrarDetalle se invoca de manera polimórfica, mostrando detalles específicos según el tipo real del objeto.
 
-### Polymorphism
-- The `Producto` class is an abstract base class with derived classes `ProductoDigital` and `ProductoFisico`.
-- Polymorphism is demonstrated in the `Pedido` class, where the `agregarProducto` method accepts any `Producto` object, regardless of whether it is `ProductoDigital` or `ProductoFisico`. The `mostrarDetalle` method is called polymorphically, displaying specific details based on the actual object type.
+Sobrecarga de Métodos
 
-### Method Overloading
-- The `Carrito` class implements three overloaded `agregarProducto` methods:
-  1. Accepts a `Producto` object.
-  2. Accepts an ID, name, price, type, and an extra parameter (file size or weight).
-  3. Accepts only an ID, simulating a database lookup.
-- This allows flexible addition of products to the cart based on available data.
+La clase Carrito implementa tres métodos sobrecargados agregarProducto:
+Acepta un objeto Producto.
+Acepta un ID, nombre, precio, tipo y un parámetro adicional (tamaño del archivo o peso).
+Acepta solo un ID, simulando una búsqueda en una base de datos.
 
-### Method Overriding
-- The `mostrarDetalle` method in the `Producto` class is overridden in `ProductoDigital` and `ProductoFisico` to provide specific details (e.g., file size for digital products, weight for physical products).
 
-## Setup and Execution
-1. Clone the repository from GitHub.
-2. Ensure JDK 17 is installed.
-3. Navigate to the `src` directory and compile the Java files:
-   ```bash
-   javac model/*.java service/*.java Main.java
-   ```
-4. Run the program:
-   ```bash
-   java Main
-   ```
+Esto permite agregar productos al carrito de manera flexible según los datos disponibles.
 
-## Challenges and Solutions
-- **Challenge**: Java’s static typing required careful design of the `agregarProducto` overloaded methods to handle different input combinations without code duplication.
-  - **Solution**: Used a clear parameter structure and type checking within the `Carrito` class to create appropriate product instances based on the `tipo` parameter.
-- **Challenge**: Ensuring polymorphic behavior in the `Pedido` class without type casting.
-  - **Solution**: Relied on the abstract `Producto` class and its `mostrarDetalle` method, allowing the `Pedido` class to handle any product type generically.
+Sobreescritura de Métodos
 
-## Screenshots
-*(Note: Screenshots would be added here in a real submission, showing console output of the Main class execution. For this response, imagine console outputs displaying cart contents and order details.)*
+El método mostrarDetalle en la clase Producto es sobreescrito en ProductoDigital y ProductoFisico para proporcionar detalles específicos (por ejemplo, tamaño del archivo para productos digitales, peso para productos físicos).
 
-## References
-- Oracle. (2023). *The Java Tutorials: Polymorphism*. Retrieved from https://docs.oracle.com/javase/tutorial/java/IandI/polymorphism.html
-- Horstmann, C. S. (2019). *Core Java, Volume I--Fundamentals* (11th ed.). Prentice Hall.
+Configuración y Ejecución
 
-## GitHub Repository
-The source code is available at: [Insert GitHub URL here]
+Clona el repositorio desde GitHub.
+Asegúrate de tener instalado JDK 17.
+Navega al directorio src y compila los archivos Java:javac model/*.java service/*.java Main.java
 
-*Note*: Ensure the repository is public for evaluation.
+
+Ejecuta el programa:java Main
+
+
+
+Desafíos y Soluciones
+
+Desafío: El tipado estático de Java requirió un diseño cuidadoso de los métodos sobrecargados agregarProducto para manejar diferentes combinaciones de entrada sin duplicar código.
+Solución: Se utilizó una estructura clara de parámetros y verificación de tipos dentro de la clase Carrito para crear instancias de productos apropiadas según el parámetro tipo.
+
+
+Desafío: Garantizar un comportamiento polimórfico en la clase Pedido sin necesidad de conversión de tipos (casting).
+Solución: Se basó en la clase abstracta Producto y su método mostrarDetalle, permitiendo que la clase Pedido maneje cualquier tipo de producto de manera genérica.
+
+
+
+Capturas de Pantalla
+*(Nota: Las capturas de pantalla se incluirían aquí en una entrega real, mostrando la salida de la consola de la ejecución de la clase Main. Para esta respuesta, imagina salidas
