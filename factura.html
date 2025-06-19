@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto Biu Junior Peralta Facturación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 70px;
+            height: 70px;
+            background-color: blue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+            position: relative;
+        }
+        .logo-corner {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 10px;
+            height: 10px;
+            background-color: black;
+        }
+        .company-name {
+            font-size: 32px;
+            font-weight: normal;
+        }
+        .address {
+            margin-bottom: 20px;
+        }
+        .form-section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            background-color: #8080ff;
+            color: white;
+            padding: 5px 10px;
+            margin-bottom: 10px;
+        }
+        .form-row {
+            display: flex;
+            margin-bottom: 5px;
+            align-items: center;
+            background-color: #e6e6fa;
+            padding: 5px;
+        }
+        .form-label {
+            width: 150px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        .form-input {
+            flex: 1;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #e6e6e6;
+            border: 1px solid #999;
+            padding: 5px 15px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background-color: #d9d9d9;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .invoice-table th {
+            background-color: #8080ff;
+            color: white;
+            text-align: left;
+            padding: 5px;
+        }
+        .invoice-table td {
+            padding: 5px;
+            border: 1px solid #ddd;
+        }
+        .summary {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .summary-table {
+            width: 300px;
+        }
+        .summary-table td {
+            padding: 5px;
+        }
+        .summary-table .label {
+            background-color: #8080ff;
+            color: white;
+            width: 150px;
+        }
+        .action-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .xml-viewer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: monospace;
+        }
+        .plus-minus {
+            width: 30px;
+            text-align: center;
+            cursor: pointer;
+            user-select: none;
+            background-color: #eee;
+        }
+        .status {
+            background-color: #e6e6e6;
+            padding: 5px;
+            margin-top: 10px;
+            text-align: center;
+        }
+         .svg-container {
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px dashed #ccc;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .svg-placeholder {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+          
+
+           
+            <svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+  <rect width="30" height="30" x="15" y="15" fill="blue" />
+</svg>
+
+            
+            <h1 class="company-name">Proyecto Biu Junior Peralta Facturación</h1>
+        </div>
+        
+        <div class="address">
+            New York . Teléfono: 347-219-223
+        </div>
+        
+        <div class="form-section">
+            <div class="section-title">Datos del Cliente</div>
+            <form id="clientForm">
+                <div class="form-row">
+                    <div class="form-label">RUC:</div>
+                    <div class="form-input"><input type="text" id="ruc" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Código:</div>
+                    <div class="form-input"><input type="text" id="code"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Nombre:</div>
+                    <div class="form-input"><input type="text" id="name" required></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Dirección:</div>
+                    <div class="form-input"><input type="text" id="address"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Teléfono:</div>
+                    <div class="form-input"><input type="text" id="phone"></div>
+                </div>
+                <div class="form-row">
+                    <div class="form-label">Correo:</div>
+                    <div class="form-input"><input type="email" id="email" required></div>
+                </div>
+            </form>
+        </div>
+        
+        <div class="form-section">
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <div class="section-title"># Factura</div>
+                    <input type="text" id="invoiceNumber" required>
+                </div>
+                <div>
+                    <div class="section-title">Fecha</div>
+                    <input type="date" id="invoiceDate" required>
+                </div>
+            </div>
+        </div>
+        
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Descripción</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Precio Total</th>
+                    <th class="plus-minus" id="add-row">+</th>
+                    <th class="plus-minus" id="remove-row">-</th>
+                </tr>
+            </thead>
+            <tbody id="invoice-items">
+                <tr>
+                    <td><input type="text" class="item-code" required></td>
+                    <td><input type="text" class="item-description" required></td>
+                    <td><input type="number" class="item-quantity" min="1" value="1" required></td>
+                    <td><input type="number" class="item-price" min="0" step="0.01" required></td>
+                    <td class="item-total">0.00</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+<!-- SVG agregando sgv para que se visualize -->
+        <div class="svg-container" id="svg-container">
+            <div class="svg-placeholder" id="svg-placeholder">El SVG aparecerá automáticamente cuando ingrese un código de producto</div>
+        </div>
+
+
+        
+        <div class="summary">
+            <table class="summary-table">
+                <tr>
+                    <td class="label">Subtotal</td>
+                    <td id="subtotal">0.00</td>
+                </tr>
+                <tr>
+                    <td class="label">Impuesto (12%)</td>
+                    <td id="tax">0.00</td>
+                </tr>
+                <tr>
+                    <td class="label">Total</td>
+                    <td id="total">0.00</td>
+                </tr>
+            </table>
+        </div>
+
+
+        
+        <div class="status" id="status">Listo</div>
+        
+        <div class="action-buttons">
+            <button class="button" onclick="generateXML()" aria-label="Generar XML">Generar XML</button>
+            <button class="button" onclick="saveXML()" aria-label="Guardar XML">Guardar XML</button>
+            <button class="button" onclick="clearForm()" aria-label="Limpiar Formulario">Limpiar Formulario</button>
+            <button class="button" onclick="validateData()" aria-label="Validar Datos">Validar Datos</button>
+            <button class="button" onclick="saveInvoice()" aria-label="Guardar Factura">Guardar Factura</button>
+            <button class="button" onclick="loadInvoices()" aria-label="Cargar Facturas">Cargar Facturas</button>
+        </div>
+        
+        <div class="xml-viewer" id="xml-viewer"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Prevent form submission
+            document.getElementById('clientForm').addEventListener('submit', e => e.preventDefault());
+
+            // Add row
+            document.getElementById('add-row').addEventListener('click', () => {
+                const tbody = document.getElementById('invoice-items');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td><input type="text" class="item-code" required></td>
+                    <td><input type="text" class="item-description" required></td>
+                    <td><input type="number" class="item-quantity" min="1" value="1" required></td>
+                    <td><input type="number" class="item-price" min="0" step="0.01" required></td>
+                    <td class="item-total">0.00</td>
+                    <td></td>
+                    <td></td>`;
+                tbody.appendChild(newRow);
+                addRowEventListeners(newRow);
+                updateStatus('Nueva fila agregada');
+            });
+
+            // Remove row
+            document.getElementById('remove-row').addEventListener('click', () => {
+                const tbody = document.getElementById('invoice-items');
+                if (tbody.children.length > 1) {
+                    tbody.removeChild(tbody.lastChild);
+                    updateTotals();
+                    updateStatus('Fila eliminada');
+                }
+            });
+
+            // Add event listeners to initial row
+            addRowEventListeners(document.querySelector('#invoice-items tr'));
+
+            function addRowEventListeners(row) {
+                const quantity = row.querySelector('.item-quantity');
+                const price = row.querySelector('.item-price');
+                const codeInput = row.querySelector('.item-code');
+
+                quantity.addEventListener('input', () => {
+                    calculateRowTotal(row);
+                    updateTotals();
+                });
+                price.addEventListener('input', () => {
+                    calculateRowTotal(row);
+                    updateTotals();
+                });
+
+
+                //inicio crete svg
+            // Add event listener for code input to generate SVG
+                codeInput.addEventListener('input', (e) => {
+                    const codigo = e.target.value.trim();
+                    if (codigo) {
+                        generateSVGFromCode(codigo);
+                        updateStatus(`SVG generado para código: ${codigo}`);
+                    } else {
+                        clearSVG();
+                    }
+                });
+            }
+
+         function generateSVGFromCode(codigo) {
+                const svgContainer = document.getElementById('svg-container');
+                const placeholder = document.getElementById('svg-placeholder');
+                
+                // Hide placeholder
+                placeholder.style.display = 'none';
+                
+                // Generate SVG based on code
+                const svgElement = createSVGFromCode(codigo);
+                
+                // Clear previous SVGs and add new one
+                const existingSVGs = svgContainer.querySelectorAll('svg');
+                existingSVGs.forEach(svg => svg.remove());
+                
+                svgContainer.appendChild(svgElement);
+            }
+
+           function createSVGFromCode(codigo) {
+                // Create SVG element
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '200');
+                svg.setAttribute('height', '50');
+                svg.setAttribute('viewBox', '0 0 200 50');
+                
+                // Generate bars based on code
+                const bars = generateBarsFromCode(codigo);
+                
+                bars.forEach((bar, index) => {
+                    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    rect.setAttribute('x', index * 4);
+                    rect.setAttribute('y', 10);
+                    rect.setAttribute('width', bar.width);
+                    rect.setAttribute('height', 30);
+                    rect.setAttribute('fill', bar.colors);
+                    svg.appendChild(rect);
+                });
+                
+                // Add text label with the code
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', '100');
+                text.setAttribute('y', '48');
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('font-family', 'monospace');
+                text.setAttribute('font-size', '12');
+                text.setAttribute('fill', 'red');
+                text.textContent = codigo;
+                svg.appendChild(text);
+                
+                return svg;
+            }
+
+            function generateBarsFromCode(codigo) {
+                const bars = [];
+                const colors = ['#000000', '#333333', '#666666', '#999999'];
+                
+                // Convert each character to a bar
+                for (let i = 0; i < codigo.length && i < 40; i++) {
+                    const char = codigo[i];
+                    const charCode = char.charCodeAt(0);
+                    
+                    // Generate width and color based on character
+                    const width = (charCode % 4) + 1; // Width between 1-4
+                    const colorIndex = charCode % colors.length;
+                    
+                    bars.push({
+                        width: width,
+                        color: colors[colorIndex]
+                    });
+                }
+                
+                return bars;
+            }
+
+            function clearSVG() {
+                const svgContainer = document.getElementById('svg-container');
+                const placeholder = document.getElementById('svg-placeholder');
+                
+                // Remove all SVGs
+                const existingSVGs = svgContainer.querySelectorAll('svg');
+                existingSVGs.forEach(svg => svg.remove());
+                
+                // Show placeholder
+                placeholder.style.display = 'block';
+            }
+
+
+            function calculateRowTotal(row) {
+                const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
+                const price = parseFloat(row.querySelector('.item-price').value) || 0;
+                const total = quantity * price;
+                row.querySelector('.item-total').textContent = total.toFixed(2);
+            }
+
+            function updateTotals() {
+                let subtotal = 0;
+                document.querySelectorAll('#invoice-items tr').forEach(row => {
+                    const total = parseFloat(row.querySelector('.item-total').textContent) || 0;
+                    subtotal += total;
+                });
+                const tax = subtotal * 0.12;
+                const total = subtotal + tax;
+                document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+                document.getElementById('tax').textContent = tax.toFixed(2);
+                document.getElementById('total').textContent = total.toFixed(2);
+            }
+
+            function sanitizeXML(str) {
+                return str.replace(/&/g, '&amp;')
+                         .replace(/</g, '&lt;')
+                         .replace(/>/g, '&gt;')
+                         .replace(/"/g, '&quot;')
+                         .replace(/'/g, '&apos;');
+            }
+
+            window.generateXML = function() {
+                const ruc = sanitizeXML(document.getElementById('ruc').value || '1234567890001');
+                const code = sanitizeXML(document.getElementById('code').value || '56757657');
+                const name = sanitizeXML(document.getElementById('name').value || 'Servicios GS');
+                const address = sanitizeXML(document.getElementById('address').value || 'Calle Los Jacintos N21-30, Quito/Ecuador');
+                const phone = sanitizeXML(document.getElementById('phone').value || '095585347334');
+                const email = sanitizeXML(document.getElementById('email').value || 'saccec@gmail.com');
+                const invoiceNumber = sanitizeXML(document.getElementById('invoiceNumber').value || '0001');
+                const invoiceDate = sanitizeXML(document.getElementById('invoiceDate').value || new Date().toISOString().slice(0, 10));
+                const items = document.querySelectorAll('#invoice-items tr');
+                let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<factura>\n`;
+                xml += `  <info>\n`;
+                xml += `    <numero>${invoiceNumber}</numero>\n`;
+                xml += `    <fecha>${invoiceDate}</fecha>\n`;
+                xml += `    <subtotal>${document.getElementById('subtotal').textContent}</subtotal>\n`;
+                xml += `    <impuesto>${document.getElementById('tax').textContent}</impuesto>\n`;
+                xml += `    <total>${document.getElementById('total').textContent}</total>\n`;
+                xml += `  </info>\n`;
+                xml += `  <empresa>\n`;
+                xml += `    <ruc>1234567890001</ruc>\n`;
+                xml += `    <clave>56757657</clave>\n`;
+                xml += `    <nombre>Servicios GS</nombre>\n`;
+                xml += `    <direccion>Calle Los Jacintos N21-30, Quito/Ecuador</direccion>\n`;
+                xml += `    <telefono>095585347334</telefono>\n`;
+                xml += `  </empresa>\n`;
+                xml += `  <cliente>\n`;
+                xml += `    <ruc>${ruc}</ruc>\n`;
+                xml += `    <codigo>${code}</codigo>\n`;
+                xml += `    <nombre>${name}</nombre>\n`;
+                xml += `    <direccion>${address}</direccion>\n`;
+                xml += `    <telefono>${phone}</telefono>\n`;
+                xml += `    <correo>${email}</correo>\n`;
+                xml += `  </cliente>\n`;
+                xml += `  <detalle>\n`;
+                items.forEach(row => {
+                    const code = sanitizeXML(row.querySelector('.item-code').value || '');
+                    const description = sanitizeXML(row.querySelector('.item-description').value || '');
+                    const quantity = row.querySelector('.item-quantity').value || '0';
+                    const price = row.querySelector('.item-price').value || '0';
+                    const total = row.querySelector('.item-total').textContent;
+                    if (code || description || quantity !== '0' || price !== '0') {
+                        xml += `    <producto>\n`;
+                        xml += `      <codigo>${code}</codigo>\n`;
+                        xml += `      <descripcion>${description}</descripcion>\n`;
+                        xml += `      <cantidad>${quantity}</cantidad>\n`;
+                        xml += `      <precio>${price}</precio>\n`;
+                        xml += `      <preciototal>${total}</preciototal>\n`;
+                        xml += `      <impuesto>${(parseFloat(total) * 0.12).toFixed(2)}</impuesto>\n`;
+                        xml += `    </producto>\n`;
+                    }
+                });
+                xml += `  </detalle>\n</factura>`;
+                document.getElementById('xml-viewer').textContent = xml;
+                updateStatus('XML generado');
+                return xml;
+            };
+
+            window.saveXML = function() {
+                try {
+                    const xml = generateXML();
+                    const blob = new Blob([xml], { type: 'text/xml' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `factura_${document.getElementById('invoiceNumber').value || '0001'}.xml`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    updateStatus('XML guardado');
+                } catch (error) {
+                    updateStatus('Error al guardar XML');
+                    console.error('Error saving XML:', error);
+                }
+            };
+
+            window.clearForm = function() {
+                document.getElementById('clientForm').reset();
+                document.getElementById('invoiceNumber').value = '';
+                document.getElementById('invoiceDate').value = new Date().toISOString().slice(0, 10);
+                document.getElementById('subtotal').textContent = '0.00';
+                document.getElementById('tax').textContent = '0.00';
+                document.getElementById('total').textContent = '0.00';
+                const tbody = document.getElementById('invoice-items');
+                while (tbody.children.length > 1) {
+                    tbody.removeChild(tbody.lastChild);
+                }
+                const firstRow = document.querySelector('#invoice-items tr');
+                if (firstRow) {
+                    firstRow.querySelector('.item-code').value = '';
+                    firstRow.querySelector('.item-description').value = '';
+                    firstRow.querySelector('.item-quantity').value = '1';
+                    firstRow.querySelector('.item-price').value = '';
+                    firstRow.querySelector('.item-total').textContent = '0.00';
+                }
+                document.getElementById('xml-viewer').textContent = '';
+                updateStatus('Formulario limpiado');
+            };
+
+            window.validateData = function() {
+                const ruc = document.getElementById('ruc').value.trim();
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const invoiceNumber = document.getElementById('invoiceNumber').value.trim();
+                const invoiceDate = document.getElementById('invoiceDate').value;
+                const items = document.querySelectorAll('#invoice-items tr');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                let valid = true;
+
+                if (!ruc || !name || !email || !invoiceNumber || !invoiceDate) {
+                    updateStatus('Complete todos los campos obligatorios del cliente y la factura');
+                    valid = false;
+                } else if (!emailRegex.test(email)) {
+                    updateStatus('Ingrese un correo electrónico válido');
+                    valid = false;
+                }
+
+                items.forEach((row, index) => {
+                    const code = row.querySelector('.item-code').value.trim();
+                    const description = row.querySelector('.item-description').value.trim();
+                    const quantity = parseFloat(row.querySelector('.item-quantity').value) || 0;
+                    const price = parseFloat(row.querySelector('.item-price').value) || 0;
+                    if (!code || !description || quantity <= 0 || price < 0) {
+                        updateStatus(`Complete todos los campos del ítem en la fila ${index + 1} con valores válidos`);
+                        valid = false;
+                    }
+                });
+
+                if (valid) updateStatus('Datos validados correctamente');
+                return valid;
+            };
+
+            window.saveInvoice = async function() {
+    if (!validateData()) return;
+    try {
+        const items = Array.from(document.querySelectorAll('#invoice-items tr'));
+        const firstItem = items[0] || {};
+        const invoice = {
+            numero_factura: document.getElementById('invoiceNumber').value.trim(),
+            fecha_emision: document.getElementById('invoiceDate').value,
+            subtotal: parseFloat(document.getElementById('subtotal').textContent),
+            impuesto: parseFloat(document.getElementById('tax').textContent),
+            total: parseFloat(document.getElementById('total').textContent),
+            cliente_ruc: document.getElementById('ruc').value.trim(),
+            cliente_codigo: document.getElementById('code').value.trim() || '',
+            cliente_nombre: document.getElementById('name').value.trim(),
+            cliente_direccion: document.getElementById('address').value.trim() || '',
+            cliente_telefono: document.getElementById('phone').value.trim() || '',
+            cliente_correo: document.getElementById('email').value.trim(),
+            item_codigo: firstItem.querySelector ? firstItem.querySelector('.item-code').value.trim() : '',
+            item_descripcion: firstItem.querySelector ? firstItem.querySelector('.item-description').value.trim() : '',
+            item_cantidad: firstItem.querySelector ? parseFloat(firstItem.querySelector('.item-quantity').value) : 0,
+            item_precio: firstItem.querySelector ? parseFloat(firstItem.querySelector('.item-price').value) : 0,
+            item_precio_total: firstItem.querySelector ? parseFloat(firstItem.querySelector('.item-total').textContent) : 0
+        };
+
+        // Save to localStorage as a fallback
+        localStorage.setItem(`invoice_${invoice.numero_factura}`, JSON.stringify({
+            client: {
+                ruc: invoice.cliente_ruc,
+                code: invoice.cliente_codigo,
+                name: invoice.cliente_nombre,
+                address: invoice.cliente_direccion,
+                phone: invoice.cliente_telefono,
+                email: invoice.cliente_correo
+            },
+            invoice: {
+                number: invoice.numero_factura,
+                date: invoice.fecha_emision,
+                items: items.map(row => ({
+                    code: row.querySelector('.item-code').value.trim(),
+                    description: row.querySelector('.item-description').value.trim(),
+                    quantity: row.querySelector('.item-quantity').value,
+                    price: row.querySelector('.item-price').value,
+                    total: row.querySelector('.item-total').textContent
+                })),
+                subtotal: invoice.subtotal,
+                tax: invoice.impuesto,
+                total: invoice.total
+            }
+        }));
+
+        // Send to backend API with API key
+        const response = await fetch('http://localhost/api.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-API-Key': 'your-secret-api-key-1234567890' // Replace with your actual API key
+            },
+            body: JSON.stringify(invoice),
+        });
+
+        const result = await response.json();
+        if (!response.ok) {
+            throw new Error(result.error || 'Error al guardar en la base de datos');
+        }
+
+        updateStatus(`Factura guardada en la base de datos (ID: ${result.id})`);
+    } catch (error) {
+        updateStatus('Error al guardar la factura en la base de datos. Guardada localmente.');
+        console.error('Error saving invoice:', error);
+    }
+};
+
+            window.loadInvoices = function() {
+                try {
+                    // Load from localStorage (for now, as backend GET is not integrated in frontend)
+                    const invoices = Object.keys(localStorage)
+                        .filter(key => key.startsWith('invoice_'))
+                        .map(key => JSON.parse(localStorage.getItem(key)));
+                    if (invoices.length === 0) {
+                        updateStatus('No hay facturas guardadas localmente');
+                        return;
+                    }
+                    let output = 'Facturas guardadas localmente:\n';
+                    invoices.forEach(invoice => {
+                        output += `Factura #${invoice.invoice.number} - Fecha: ${invoice.invoice.date}\n`;
+                        output += `Cliente: ${invoice.client.name}\n`;
+                        output += `Total: ${invoice.invoice.total}\n\n`;
+                    });
+                    alert(output);
+                    updateStatus('Facturas locales cargadas');
+                } catch (error) {
+                    updateStatus('Error al cargar facturas locales');
+                    console.error('Error loading invoices:', error);
+                }
+            };
+
+            function updateStatus(message) {
+                const statusDiv = document.getElementById('status');
+                statusDiv.textContent = message;
+                setTimeout(() => {
+                    if (statusDiv.textContent === message) statusDiv.textContent = 'Listo';
+                }, 3000);
+            }
+
+            // Initialize date
+            document.getElementById('invoiceDate').value = new Date().toISOString().slice(0, 10);
+        });
+    </script>
+</body>
+</html>
